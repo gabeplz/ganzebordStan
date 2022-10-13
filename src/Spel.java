@@ -14,6 +14,8 @@ public class Spel {
     Dobbelsteen steen2 = new Dobbelsteen();
 
     public void maakSpelers() {
+        Bord das = new Bord();
+        das.fillVakjeArraylist();
 
         System.out.println("hoeveel spelers zijn er");
         Scanner in = new Scanner(System.in);
@@ -60,7 +62,6 @@ public class Spel {
             System.out.println(speelVolgorde);
             //methode roll 1
 
-
             System.out.println("druk op een toests om terug te gaan");
             userInput = Integer.parseInt(in.next());
             for (int emptyLines = 0; emptyLines < 6; emptyLines++) {
@@ -77,7 +78,19 @@ public class Spel {
     }
 
 
-    public void speelronde(){
+    public void speelronde(ArrayList<Gans> speelVolgorde, Dobbelsteen steen1, Dobbelsteen steen2 ){
+
+        for (Gans gans: speelVolgorde) {
+            if (gans.BeurtOverslaan == true){
+                continue;
+            }
+            int waardeSteen1 = steen1.roll();
+            int waardeSteen2 = steen2.roll();
+            // TODO: 13/10/2022 // check voor specialle combi bij en eerste worp
+            int totaalWaardeWorp = waardeSteen1 + waardeSteen2;
+            int curPos = gans.getPositie();
+
+        }
         // TODO: 12/10/2022 for each speler, check if beurt overslaan, roll 2 dobbelstenen, addup, check if arrayIndex empty, move on array
 
     }
@@ -101,17 +114,20 @@ public class Spel {
             // [5,3,4,1]
             // get index max; place index in new VolgordeArray, set value in worp array to 0;
 
-        int max = 0;
-        for (int val: rolls) {
-            if (val > max){
-                max = val;
+
+        for (Gans ii: gansArrayList) {
+            int max = 0;
+            for (int val : rolls) {
+                if (val > max) {
+                    max = val;
+                }
             }
-            int indexMax = rolls.indexOf(max);
-            newSpeelvolgorde.add(gansArrayList.get(indexMax));
-            rolls.set(indexMax,0);
+                int indexMax = rolls.indexOf(max);
+                newSpeelvolgorde.add(gansArrayList.get(indexMax));
+                rolls.set(indexMax, 0);
+
 
         }
-        
         
         return newSpeelvolgorde;
     }
